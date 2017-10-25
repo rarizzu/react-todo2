@@ -1,38 +1,26 @@
 var React = require('react');
+var uuid = require('node-uuid');
+
 var TodoList = require('TodoList');
 var AddTodo = require("AddTodo");
 var TodoSearch = require('TodoSearch');
-var uuid = require('node-uuid');
+var TodoAPI = require("TodoAPI");
 
 var TodoApp = React.createClass({
     getInitialState: function () {
         return {
             showCompleted: false,
             searchText: '',
-            todos: [
-                {
-                    id: uuid(),
-                    text: "walk the dog",
-                    completed: false
-                }, {
-                    id: uuid(),
-                    text: "clean the yard",
-                    completed: true
-                }, {
-                    id: uuid(),
-                    text:"clean kitchen",
-                    completed: false
-                },
-                {
-                    id: uuid(),
-                    text:"clean car",
-                    completed: true
-                }
-            ]
+            todos: TodoAPI.getTodos()
          }
+    },
+//gets fired after the props or the state updates, so then you need to set your todos based off of the state
+    componentDidUpdate: function () {
+        TodoAPI.setTodos(this.state.todos);
     },
 
     handleAddTodo: function (text) {
+        //set it as its orginal state, with the new todo on the back
         this.setState({
             todos : [
                 ...this.state.todos,
