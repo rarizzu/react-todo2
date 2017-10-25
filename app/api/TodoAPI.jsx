@@ -41,7 +41,28 @@ module.exports = {
 
         //filter by searchText
 
-        //sort by completed and not completed
+        filteredTodos = filteredTodos.filter((todo) => {
+            var text = todo.text.toLowerCase();
+                //if indexOf has no matches, it returns -1.  you need to return items
+                return searchText.length === 0 || text.indexOf(searchText) > -1;
+        });
+      
+
+        //sort by completed and not completed.  this modifies the existing arrays and doesnt
+        //return a new one. so you dont need to set it to filtered todos
+         filteredTodos.sort((a, b) => {
+            if (!a.completed && b.completed) {
+                return -1;
+            }
+
+            else if (!b.completed && a.completed) {
+                return 1;
+            }
+
+            else {
+                return 0;
+            }
+        });
 
         return filteredTodos;
 
