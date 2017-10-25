@@ -23,8 +23,27 @@ module.exports = {
         }
         catch (e) {        
         }
-        
+
         return $.isArray(todos) ? todos : []
             
+    },
+
+    filterTodos : (todos, showCompleted, searchText) => {
+        var filteredTodos = todos;
+
+        //filter by showCompleted
+        filteredTodos = filteredTodos.filter( (todo) => {
+            //if a todos completed status is false it will return the array filterd with just those, but if showCompleted is selected then dont worry about
+            //removing the completed ones just return all of them.  this will make the function just return "true", instead of 
+            //filter the array for the noncompleted ones
+            return !todo.completed || showCompleted
+        });
+
+        //filter by searchText
+
+        //sort by completed and not completed
+
+        return filteredTodos;
+
     }
 };
